@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "bt_llm_advisory"
+version = "0.0.1"
+description = "Backtrader LLM Advisory"
+authors = ["Daniel <daniel@vcard24.de>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+llm_advisory = "^0.0.1"
+backtrader = "^1.9.78.123"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
