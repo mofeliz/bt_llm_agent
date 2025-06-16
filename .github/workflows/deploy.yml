@@ -1,0 +1,32 @@
+name: Build & Push Docker to ECR
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+
+      - name: Login to ECR
+        run: |
+          aws ecr get-login-password \
+            | docker login \
+                --username AWS \
+                --password-stdin 123456789012.dkr.ecr.us-west-2.amazonaws.com
+
+      - name: Build, Tag, & Push
+        run: |
+          docker build -t bt-llm-agent .
+          docker tag bt-llm-agent:latest \
+            358521121107.dkr.ecr.us-west-2.amazonaws.com/bt-llm-agent:latest
+          docker push 358521121107.dkr.ecr.us-west-2.amazonaws.com/bt-llm-agent:latest
