@@ -14,7 +14,7 @@ RUN apt-get update && \
 # 2) llm_advisory from its GitHub repo (main branch)
 RUN pip install --no-cache-dir \
     backtrader==1.9.78.123 \
-    git+https://github.com/mofeliz/llm_advisory.git@main
+    git+https://github.com/mofeliz/bt_llm_agent.git@main
 
 # Copy your project files into the container
 COPY . /app
