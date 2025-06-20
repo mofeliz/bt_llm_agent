@@ -1,16 +1,23 @@
-# Use a lightweight Python image
+# Use a lightweight Python base image
 FROM python:3.11-slim
 
 # Set working directory
 WORKDIR /app
 
-# Copy the entire repo
+# Install core dependencies directly
+# 1) Backtrader version required by bt_llm_advisory
+# 2) llm_advisory from its GitHub repo (v0.0.1 or main)
+RUN pip install --no-cache-dir \
+    backtrader==1.9.78.123 \
+    git+https://github.com/happydasch/llm_advisory.git@v0.0.1
+
+# Copy your project files
 COPY . /app
 
-# Install your package (reads pyproject.toml automatically)
+# Install your advisory package
 RUN pip install --no-cache-dir .
 
-# Expose port if your service listens on 8000
+# Expose the port your service listens on
 EXPOSE 8000
 
 # Start the advisory service
