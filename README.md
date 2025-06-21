@@ -1,4 +1,4 @@
-# Backtrader LLM Advisory Agent Edited for Testing Version 4.4
+# Backtrader LLM Advisory Agent Edited for Testing Version 05
 
 `Backtrader LLM Advisory` is using `LLM Advisory` for providing advisors to backtrader strategies. It allows the strategy to access different "advisors" which have access to the strategy and its current state.
 
