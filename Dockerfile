@@ -10,14 +10,15 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install core dependencies directly:
- # 1) backtrader pinned to the required version
- # 2) llm_advisory from its GitHub repo (main branch)
--RUN pip install --no-cache-dir \
--    backtrader==1.9.78.123 \
--    git+https://github.com/mofeliz/bt_llm_agent.git@main
-+RUN pip install --no-cache-dir \
-+    backtrader==1.9.78.123 \
-+    git+https://github.com/happydasch/llm_advisory.git@main
+# 1) backtrader pinned to the required version
+# 2) llm_advisory from its GitHub repo’s master branch
+RUN pip install --no-cache-dir \
+    backtrader==1.9.78.123 \
+    git+https://github.com/happydasch/llm_advisory.git@master
+
+# Patch the syntax error in llm_advisory/helper/llm_prompt.py
+RUN sed -i "s/df\\.to_dict(\"records\")/df.to_dict('records')/" \
+    /usr/local/lib/python3.11/site-packages/llm_advisory/helper/llm_prompt.py
 
 # Copy your project files into the container
 COPY . /app
